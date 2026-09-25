@@ -70,6 +70,13 @@ const console_handler_t *get_console_handler_by_name(const char *core_name)
 		return &g_console_s32x;
 	}
 
+	// RA builds of jotego arcade cores report "RA_<core>" in their config
+	// string, so they can be routed to the RA Main by an [RA_*] ini section
+	// without catching the stock core of the same name.
+	if (!strncasecmp(core_name, "RA_", 3) && core_name[3]) {
+		return get_console_handler_by_name(core_name + 3);
+	}
+
 	return NULL;
 }
 
