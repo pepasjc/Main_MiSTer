@@ -32,6 +32,7 @@
 #include "hardware.h"
 #include "lib/md5/md5.h"
 #include "ra_cdreader_chd.h"
+#include "support/arcade/mra_loader.h"
 
 #ifdef HAS_RCHEEVOS
 #include "rc_client.h"
@@ -1670,6 +1671,22 @@ void achievements_init(void)
         } else {
 		RA_LOG("No credentials — running in monitor-only mode.");
 		RA_LOG("Create %s to enable RetroAchievements.", RA_CFG_PATH);
+	}
+
+	// Arcade cores launched from an .mra never pass through the menu's file
+	// loader (the ROMs were streamed by user_io_init before we got here), so
+	// start the game session from the MRA <setname>. RA hashes arcade games by
+	// set name, so "<setname>.zip" is all calculate_hash needs.
+	if (is_arcade() && !strncasecmp(g_active_handler->name, "JT", 2)) {
+		const char *setname = arcade_get_setname();
+		if (setname && setname[0]) {
+			char set_path[256];
+			snprintf(set_path, sizeof(set_path), "%s.zip", setname);
+			RA_LOG("Arcade MRA launch: set '%s'", setname);
+			achievements_load_game(set_path, 0);
+		} else {
+			RA_LOG("Arcade MRA launch without <setname> -- cannot identify game");
+		}
 	}
 #else
 	(void)has_creds;

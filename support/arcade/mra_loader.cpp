@@ -1130,6 +1130,11 @@ static int xml_read_pre_parse(XMLEvent evt, const XMLNode* node, SXML_CHAR* text
 	return true;
 }
 
+const char *arcade_get_setname()
+{
+	return arcade_setname;
+}
+
 int arcade_send_rom(const char *xml)
 {
 	const char *p = strrchr(xml, '/');

@@ -79,6 +79,9 @@ extern const console_handler_t g_console_saturn;
 extern const console_handler_t g_console_tgfx16;
 extern const console_handler_t g_console_s32x;
 extern const console_handler_t g_console_virtualboy;
+extern const console_handler_t g_console_jtcps1;   // jotego CPS1 (arcade, .mra)
+extern const console_handler_t g_console_jtcps15;  // jotego CPS1.5
+extern const console_handler_t g_console_jtcps2;   // jotego CPS2
 
 // Get console handler by core name (returns NULL if not found)
 const console_handler_t *get_console_handler_by_name(const char *core_name);

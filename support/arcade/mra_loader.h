@@ -63,6 +63,9 @@ void arcade_sw_load();
 // Read any mra info necessary for ini processing
 void arcade_pre_parse(const char *xml);
 
+// <setname> of the loaded MRA ("" if none) - RA hashes arcade games by it
+const char *arcade_get_setname();
+
 bool arcade_is_vertical();
 int arcade_get_direction();
 

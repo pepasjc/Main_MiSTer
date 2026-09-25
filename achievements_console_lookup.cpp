@@ -21,6 +21,9 @@ extern const console_handler_t g_console_tgfx16;
 extern const console_handler_t g_console_s32x;
 extern const console_handler_t g_console_saturn;
 extern const console_handler_t g_console_virtualboy;
+extern const console_handler_t g_console_jtcps1;
+extern const console_handler_t g_console_jtcps15;
+extern const console_handler_t g_console_jtcps2;
 
 // Master lookup table
 static const console_handler_t *g_console_handlers[] = {
@@ -39,6 +42,9 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_s32x,
 	&g_console_saturn,
 	&g_console_virtualboy,
+	&g_console_jtcps1,
+	&g_console_jtcps15,
+	&g_console_jtcps2,
 	NULL
 };
 
