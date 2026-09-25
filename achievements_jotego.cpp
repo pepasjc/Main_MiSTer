@@ -79,6 +79,15 @@ static const jt_region_t r_dec0[]   = { { 0x0000, 0x4000, 0x0000 } };
 // Sunset Riders / TMNT2: Drv68KRam (0x104000, 16 KB) at 0. It is a BRAM in the
 // core, exported through the mem.yaml ra_tap (JTFRAME_RA_TAP), byte offset = RA.
 static const jt_region_t r_riders[] = { { 0x0000, 0x4000, 0x0000 } };
+// Konami Aliens family, 8-bit (no swap): one 8 KB work RAM BRAM through the RA
+// tap. Aliens / Crime Fighters: RA 0-0x1FFF is CPU 0-0x1FFF, the BRAM itself.
+// Super Contra: FBNeo puts bank RAM (CPU 0x5800, BRAM 0x1800) first, then work
+// RAM (CPU 0x4000, BRAM 0) at RA 0x800.
+static const jt_region_t r_aliens[] = { { 0x0000, 0x2000, 0x0000 } };
+static const jt_region_t r_scontra[] = { { 0x0800, 0x1800, 0x0000 }, { 0x0000, 0x0800, 0x1800 } };
+// Sega System 16A/16B/18: FBNeo's System16 All Ram starts with the 16 KB 68K work
+// RAM (swapped), a BRAM tapped through its CPU port (mem.yaml dual_port ra_tap).
+static const jt_region_t r_sega16[] = { { 0x0000, 0x4000, 0x0000 } };
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -88,6 +97,8 @@ static const jt_layout_t l_gae1[]   = { { NULL, r_gae1, N(r_gae1) } };
 static const jt_layout_t l_wwfss[]  = { { NULL, r_wwfss, N(r_wwfss) } };
 static const jt_layout_t l_dec0[]   = { { NULL, r_dec0, N(r_dec0) } };
 static const jt_layout_t l_riders[] = { { NULL, r_riders, N(r_riders) } };
+static const jt_layout_t l_aliens[] = { { "scontra", r_scontra, N(r_scontra) }, { NULL, r_aliens, N(r_aliens) } };
+static const jt_layout_t l_sega16[] = { { NULL, r_sega16, N(r_sega16) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -103,6 +114,10 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTSLYSPY", l_dec0,   N(l_dec0) },
 	{ "JTMIDRES", l_dec0,   N(l_dec0) },
 	{ "JTRIDERS", l_riders, N(l_riders) },
+	{ "JTALIENS", l_aliens, N(l_aliens) },
+	{ "JTS16",    l_sega16, N(l_sega16) },
+	{ "JTS16B",   l_sega16, N(l_sega16) },
+	{ "JTS18",    l_sega16, N(l_sega16) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -282,3 +297,7 @@ JT_HANDLER(g_console_jtninja,  "JTNINJA")
 JT_HANDLER(g_console_jtslyspy, "JTSLYSPY")
 JT_HANDLER(g_console_jtmidres, "JTMIDRES")
 JT_HANDLER(g_console_jtriders, "JTRIDERS")
+JT_HANDLER(g_console_jtaliens, "JTALIENS")
+JT_HANDLER(g_console_jts16,    "JTS16")
+JT_HANDLER(g_console_jts16b,   "JTS16B")
+JT_HANDLER(g_console_jts18,    "JTS18")
