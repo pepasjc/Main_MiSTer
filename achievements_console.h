@@ -92,6 +92,7 @@ extern const console_handler_t g_console_jtcop;
 extern const console_handler_t g_console_jtninja;
 extern const console_handler_t g_console_jtslyspy;
 extern const console_handler_t g_console_jtmidres;
+extern const console_handler_t g_console_jtriders;
 
 // Get console handler by core name (returns NULL if not found)
 const console_handler_t *get_console_handler_by_name(const char *core_name);

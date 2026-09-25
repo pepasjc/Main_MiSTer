@@ -33,6 +33,7 @@ extern const console_handler_t g_console_jtcop;
 extern const console_handler_t g_console_jtninja;
 extern const console_handler_t g_console_jtslyspy;
 extern const console_handler_t g_console_jtmidres;
+extern const console_handler_t g_console_jtriders;
 
 // Master lookup table
 static const console_handler_t *g_console_handlers[] = {
@@ -63,6 +64,7 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_jtninja,
 	&g_console_jtslyspy,
 	&g_console_jtmidres,
+	&g_console_jtriders,
 	NULL
 };
 

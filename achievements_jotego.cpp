@@ -76,6 +76,9 @@ static const jt_region_t r_gae1[]   = { { 0x0800, 0x10000, 0x0000 } };
 static const jt_region_t r_wwfss[]  = { { 0x0000, 0x4000, 0x0000 } };
 // Data East DEC0 / Sly Spy: Drv68KRam at 0 = SDRAM word 0.
 static const jt_region_t r_dec0[]   = { { 0x0000, 0x4000, 0x0000 } };
+// Sunset Riders / TMNT2: Drv68KRam (0x104000, 16 KB) at 0. It is a BRAM in the
+// core, exported through the mem.yaml ra_tap (JTFRAME_RA_TAP), byte offset = RA.
+static const jt_region_t r_riders[] = { { 0x0000, 0x4000, 0x0000 } };
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -84,6 +87,7 @@ static const jt_layout_t l_toki[]   = { { "cabal", r_cabal, N(r_cabal) }, { NULL
 static const jt_layout_t l_gae1[]   = { { NULL, r_gae1, N(r_gae1) } };
 static const jt_layout_t l_wwfss[]  = { { NULL, r_wwfss, N(r_wwfss) } };
 static const jt_layout_t l_dec0[]   = { { NULL, r_dec0, N(r_dec0) } };
+static const jt_layout_t l_riders[] = { { NULL, r_riders, N(r_riders) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -98,6 +102,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTNINJA",  l_dec0,   N(l_dec0) },
 	{ "JTSLYSPY", l_dec0,   N(l_dec0) },
 	{ "JTMIDRES", l_dec0,   N(l_dec0) },
+	{ "JTRIDERS", l_riders, N(l_riders) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -276,3 +281,4 @@ JT_HANDLER(g_console_jtcop,    "JTCOP")
 JT_HANDLER(g_console_jtninja,  "JTNINJA")
 JT_HANDLER(g_console_jtslyspy, "JTSLYSPY")
 JT_HANDLER(g_console_jtmidres, "JTMIDRES")
+JT_HANDLER(g_console_jtriders, "JTRIDERS")
