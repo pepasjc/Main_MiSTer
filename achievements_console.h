@@ -100,6 +100,11 @@ extern const console_handler_t g_console_jts18;
 extern const console_handler_t g_console_jtshouse;
 extern const console_handler_t g_console_jtpang;
 extern const console_handler_t g_console_jtbubl;
+extern const console_handler_t g_console_jt1942;
+extern const console_handler_t g_console_jt1943;
+extern const console_handler_t g_console_jtbtiger;
+extern const console_handler_t g_console_jtgng;
+extern const console_handler_t g_console_jtsf;
 
 // Get console handler by core name (returns NULL if not found)
 const console_handler_t *get_console_handler_by_name(const char *core_name);

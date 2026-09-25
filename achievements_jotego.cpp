@@ -97,6 +97,14 @@ static const jt_region_t r_shouse[] = { { 0x8000, 0x10000, 0x0000 } };
 // it at its FBNeo All Ram offset (Pang: Z80 RAM 0, VideoRam 0x3800; Bubble
 // Bobble: SharedRam 0x3300), so the 32 KB mirror is RA 1:1 (8-bit, no swap).
 static const jt_region_t r_ident32[] = { { 0x0000, 0x8000, 0x0000 } };
+// 16 KB mirror, RA 1:1
+static const jt_region_t r_ident16[] = { { 0x0000, 0x4000, 0x0000 } };
+// Capcom 8-bit (1942, 1943, Black Tiger, Ghosts'n Goblins): the main CPU module
+// taps its work RAM at the FBNeo All Ram offsets (1943 also moves sprite RAM
+// F000-FFFF to 0x2000), RA 1:1 up to 16 KB.
+// Street Fighter: Drv68kRam (0xFF8000) is at RA 0x1800 and SDRAM word 0x44000,
+// i.e. mirror 0x8000 of the window based at word 0x40000 (swapped 68K layout).
+static const jt_region_t r_sf[]     = { { 0x1800, 0x8000, 0x8000 } };
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -110,6 +118,8 @@ static const jt_layout_t l_aliens[] = { { "scontra", r_scontra, N(r_scontra) }, 
 static const jt_layout_t l_sega16[] = { { NULL, r_sega16, N(r_sega16) } };
 static const jt_layout_t l_shouse[] = { { NULL, r_shouse, N(r_shouse) } };
 static const jt_layout_t l_ident32[] = { { NULL, r_ident32, N(r_ident32) } };
+static const jt_layout_t l_ident16[] = { { NULL, r_ident16, N(r_ident16) } };
+static const jt_layout_t l_sf[]      = { { NULL, r_sf, N(r_sf) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -132,6 +142,11 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTSHOUSE", l_shouse, N(l_shouse) },
 	{ "JTPANG",   l_ident32, N(l_ident32) },
 	{ "JTBUBL",   l_ident32, N(l_ident32) },
+	{ "JT1942",   l_ident16, N(l_ident16) },
+	{ "JT1943",   l_ident16, N(l_ident16) },
+	{ "JTBTIGER", l_ident16, N(l_ident16) },
+	{ "JTGNG",    l_ident16, N(l_ident16) },
+	{ "JTSF",     l_sf,      N(l_sf) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -318,3 +333,8 @@ JT_HANDLER(g_console_jts18,    "JTS18")
 JT_HANDLER(g_console_jtshouse, "JTSHOUSE")
 JT_HANDLER(g_console_jtpang,   "JTPANG")
 JT_HANDLER(g_console_jtbubl,   "JTBUBL")
+JT_HANDLER(g_console_jt1942,   "JT1942")
+JT_HANDLER(g_console_jt1943,   "JT1943")
+JT_HANDLER(g_console_jtbtiger, "JTBTIGER")
+JT_HANDLER(g_console_jtgng,    "JTGNG")
+JT_HANDLER(g_console_jtsf,     "JTSF")

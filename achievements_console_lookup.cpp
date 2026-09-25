@@ -41,6 +41,11 @@ extern const console_handler_t g_console_jts18;
 extern const console_handler_t g_console_jtshouse;
 extern const console_handler_t g_console_jtpang;
 extern const console_handler_t g_console_jtbubl;
+extern const console_handler_t g_console_jt1942;
+extern const console_handler_t g_console_jt1943;
+extern const console_handler_t g_console_jtbtiger;
+extern const console_handler_t g_console_jtgng;
+extern const console_handler_t g_console_jtsf;
 
 // Master lookup table
 static const console_handler_t *g_console_handlers[] = {
@@ -79,6 +84,11 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_jtshouse,
 	&g_console_jtpang,
 	&g_console_jtbubl,
+	&g_console_jt1942,
+	&g_console_jt1943,
+	&g_console_jtbtiger,
+	&g_console_jtgng,
+	&g_console_jtsf,
 	NULL
 };
 
