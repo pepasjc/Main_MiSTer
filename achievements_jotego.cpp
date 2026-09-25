@@ -88,6 +88,11 @@ static const jt_region_t r_scontra[] = { { 0x0800, 0x1800, 0x0000 }, { 0x0000, 0
 // Sega System 16A/16B/18: FBNeo's System16 All Ram starts with the 16 KB 68K work
 // RAM (swapped), a BRAM tapped through its CPU port (mem.yaml dual_port ra_tap).
 static const jt_region_t r_sega16[] = { { 0x0000, 0x4000, 0x0000 } };
+// Namco System 1: FBNeo's All Ram from 0x8000 is object RAM, work RAM (0x9000),
+// TriRAM (0x11000, not tapped), sound RAM (0x11800) and palette R (0x138A0).
+// The core taps object/work/sound RAM and palette R at the same offsets, so the
+// mirror is the All Ram window 0x8000-0x17FFF (8-bit CPUs, no swap).
+static const jt_region_t r_shouse[] = { { 0x8000, 0x10000, 0x0000 } };
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -99,6 +104,7 @@ static const jt_layout_t l_dec0[]   = { { NULL, r_dec0, N(r_dec0) } };
 static const jt_layout_t l_riders[] = { { NULL, r_riders, N(r_riders) } };
 static const jt_layout_t l_aliens[] = { { "scontra", r_scontra, N(r_scontra) }, { NULL, r_aliens, N(r_aliens) } };
 static const jt_layout_t l_sega16[] = { { NULL, r_sega16, N(r_sega16) } };
+static const jt_layout_t l_shouse[] = { { NULL, r_shouse, N(r_shouse) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -118,6 +124,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTS16",    l_sega16, N(l_sega16) },
 	{ "JTS16B",   l_sega16, N(l_sega16) },
 	{ "JTS18",    l_sega16, N(l_sega16) },
+	{ "JTSHOUSE", l_shouse, N(l_shouse) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -301,3 +308,4 @@ JT_HANDLER(g_console_jtaliens, "JTALIENS")
 JT_HANDLER(g_console_jts16,    "JTS16")
 JT_HANDLER(g_console_jts16b,   "JTS16B")
 JT_HANDLER(g_console_jts18,    "JTS18")
+JT_HANDLER(g_console_jtshouse, "JTSHOUSE")
