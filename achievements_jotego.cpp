@@ -222,6 +222,16 @@ static const jt_region_t r_m90[]    = { { 0x10800, 0x5800, 0x0000 }, { 0x06000, 
 static const jt_layout_t l_ckong[]  = { { NULL, r_ckong, N(r_ckong) } };
 static const jt_layout_t l_sys1[]   = { { NULL, r_sys1, N(r_sys1) } };
 static const jt_layout_t l_m90[]    = { { NULL, r_m90, N(r_m90) } };
+// Galaxian (RA_GALAXN): galaxian-driver All Ram (CPU, video, sprite, scroll, gfx
+// bank) identity. Scramble (RA_SCRMBL): the 2 KB work RAM at 0 (8-bit, no swap).
+static const jt_region_t r_galaxn[] = { { 0x0000, 0x1840, 0x0000 } };
+static const jt_region_t r_scrmbl[] = { { 0x0000, 0x0800, 0x0000 } };
+static const jt_layout_t l_galaxn[] = { { NULL, r_galaxn, N(r_galaxn) } };
+static const jt_layout_t l_scrmbl[] = { { NULL, r_scrmbl, N(r_scrmbl) } };
+// Taito F2 (RA_TaitoF2): 68K work RAM (Taito68KRam1, swapped) up to 0xF800, plus the
+// top 2 KB of palette RAM that Thunder Fox's rich presence reads (All Ram 0x57800).
+static const jt_region_t r_taitof2[] = { { 0x00000, 0xF800, 0x0000 }, { 0x57800, 0x0800, 0xF800 } };
+static const jt_layout_t l_taitof2[] = { { NULL, r_taitof2, N(r_taitof2) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -280,6 +290,9 @@ static const jt_core_t g_jt_cores[] = {
 	{ "CKONG",    l_ckong,   N(l_ckong) },
 	{ "SEGASYS1", l_sys1,    N(l_sys1) },
 	{ "IremM90",  l_m90,     N(l_m90) },
+	{ "GALAXN",   l_galaxn,  N(l_galaxn) },
+	{ "SCRMBL",   l_scrmbl,  N(l_scrmbl) },
+	{ "TaitoF2",  l_taitof2, N(l_taitof2) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -422,6 +435,7 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "newpuckx",    "pacman"   },
 	{ "gradius3",    "gradius3j" },
 	{ "vulcan",      "gradius2" },
+	{ "amidars",     "amidar"   },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -540,6 +554,9 @@ JT_HANDLER(g_console_pgm,      "IGSPGM")
 JT_HANDLER(g_console_ckong,    "CKONG")
 JT_HANDLER(g_console_sys1,     "SEGASYS1")
 JT_HANDLER(g_console_m90,      "IremM90")
+JT_HANDLER(g_console_galaxn,   "GALAXN")
+JT_HANDLER(g_console_scrmbl,   "SCRMBL")
+JT_HANDLER(g_console_taitof2,  "TaitoF2")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
