@@ -232,6 +232,15 @@ static const jt_layout_t l_scrmbl[] = { { NULL, r_scrmbl, N(r_scrmbl) } };
 // top 2 KB of palette RAM that Thunder Fox's rich presence reads (All Ram 0x57800).
 static const jt_region_t r_taitof2[] = { { 0x00000, 0xF800, 0x0000 }, { 0x57800, 0x0800, 0xF800 } };
 static const jt_layout_t l_taitof2[] = { { NULL, r_taitof2, N(r_taitof2) } };
+// Psikyo SH-2 (RA_PsikyoSH2): FBNeo psikyosh All RAM (sprite RAM 0x20000, SH-2 RAM
+// from 0x30200, RA N = SH-2 byte N^3). The core packs the 1 KB pages TGM2, TGM2+
+// and Gunbarich read into a 16 KB mirror in FBNeo byte order.
+static const jt_region_t r_psh2[] = {
+	{ 0x020000, 0x400, 0x0000 }, { 0x090000, 0x400, 0x0400 }, { 0x094800, 0x800, 0x0800 },
+	{ 0x096800, 0x400, 0x1000 }, { 0x0A0400, 0x400, 0x1400 }, { 0x0AD000, 0x400, 0x1800 },
+	{ 0x0E1800, 0x400, 0x1C00 }, { 0x100000, 0x400, 0x2000 },
+};
+static const jt_layout_t l_psh2[] = { { NULL, r_psh2, N(r_psh2) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -293,6 +302,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "GALAXN",   l_galaxn,  N(l_galaxn) },
 	{ "SCRMBL",   l_scrmbl,  N(l_scrmbl) },
 	{ "TaitoF2",  l_taitof2, N(l_taitof2) },
+	{ "PsikyoSH2", l_psh2,   N(l_psh2) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -557,6 +567,7 @@ JT_HANDLER(g_console_m90,      "IremM90")
 JT_HANDLER(g_console_galaxn,   "GALAXN")
 JT_HANDLER(g_console_scrmbl,   "SCRMBL")
 JT_HANDLER(g_console_taitof2,  "TaitoF2")
+JT_HANDLER(g_console_psh2,     "PsikyoSH2")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
