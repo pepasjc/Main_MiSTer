@@ -130,6 +130,7 @@ extern const console_handler_t g_console_taitof2;
 extern const console_handler_t g_console_psh2;
 extern const console_handler_t g_console_raiden;
 extern const console_handler_t g_console_raiden2;
+extern const console_handler_t g_console_taitof3;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;

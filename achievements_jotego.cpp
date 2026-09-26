@@ -247,6 +247,16 @@ static const jt_region_t r_raiden[]  = { { 0x0000, 0x7000, 0x0000 } };
 static const jt_region_t r_raiden2[] = { { 0x0000, 0x4000, 0x0000 }, { 0x8000, 0x4000, 0x4000 } };
 static const jt_layout_t l_raiden[]  = { { NULL, r_raiden, N(r_raiden) } };
 static const jt_layout_t l_raiden2[] = { { NULL, r_raiden2, N(r_raiden2) } };
+// Taito F3 (Spacestate1 Arcade-taitoF3 fork, RA_Rayforce): the 1 KB pages of the
+// 128 KB 68K work RAM (Taito68KRam1, swapped) that the F3 sets read, packed into
+// 64 KB, plus the playfield byte at All Ram 0x5C000 (Arkanoid Returns).
+static const jt_region_t r_taitof3[] = {
+	{ 0x00000, 0x2800, 0x0000 }, { 0x03800, 0x6800, 0x2800 }, { 0x0B000, 0x0800, 0x9000 },
+	{ 0x0F800, 0x1C00, 0x9800 }, { 0x12000, 0x3000, 0xB400 }, { 0x15800, 0x0400, 0xE400 },
+	{ 0x1B000, 0x0400, 0xE800 }, { 0x1C400, 0x0400, 0xEC00 }, { 0x1F400, 0x0C00, 0xF000 },
+	{ 0x5C000, 0x0002, 0xFC00 },
+};
+static const jt_layout_t l_taitof3[] = { { NULL, r_taitof3, N(r_taitof3) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -311,6 +321,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "PsikyoSH2", l_psh2,   N(l_psh2) },
 	{ "Raiden",   l_raiden,  N(l_raiden) },
 	{ "Raiden2",  l_raiden2, N(l_raiden2) },
+	{ "Rayforce", l_taitof3, N(l_taitof3) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -454,6 +465,8 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "gradius3",    "gradius3j" },
 	{ "vulcan",      "gradius2" },
 	{ "amidars",     "amidar"   },
+	{ "kaiserkn",    "gblchmp"  },
+	{ "kaiserknj",   "gblchmp"  },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -578,6 +591,7 @@ JT_HANDLER(g_console_taitof2,  "TaitoF2")
 JT_HANDLER(g_console_psh2,     "PsikyoSH2")
 JT_HANDLER(g_console_raiden,   "Raiden")
 JT_HANDLER(g_console_raiden2,  "Raiden2")
+JT_HANDLER(g_console_taitof3,  "Rayforce")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
