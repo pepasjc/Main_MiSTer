@@ -57,6 +57,7 @@ extern const console_handler_t g_console_jtcastle;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
+extern const console_handler_t g_console_cave;
 
 // Master lookup table
 static const console_handler_t *g_console_handlers[] = {
@@ -111,6 +112,7 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_jtcps3,
 	&g_console_m72,
 	&g_console_m92,
+	&g_console_cave,
 	NULL
 };
 

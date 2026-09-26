@@ -167,6 +167,9 @@ static const jt_layout_t l_castle[]  = { { NULL, r_castle, N(r_castle) } };
 static const jt_layout_t l_cps3[]    = { { NULL, r_cps3, N(r_cps3) } };
 static const jt_layout_t l_m72[]     = { { NULL, r_m72, N(r_m72) } };
 static const jt_layout_t l_m92[]     = { { NULL, r_m92, N(r_m92) } };
+// Cave (Arcade-Cave_MiSTer fork, core name CAVE): every driver's RA buffer starts
+// with the 64 KB 68K work RAM, read straight from the core's mainRam (swapped).
+static const jt_layout_t l_cave[]    = { { NULL, r_cps, N(r_cps) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -205,6 +208,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS3",   l_cps3,    N(l_cps3) },
 	{ "M72",      l_m72,     N(l_m72) },
 	{ "IremM92",  l_m92,     N(l_m92) },
+	{ "CAVE",     l_cave,    N(l_cave) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -441,4 +445,5 @@ JT_HANDLER(g_console_jtcastle, "JTCASTLE")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
+JT_HANDLER(g_console_cave,     "CAVE")
 
