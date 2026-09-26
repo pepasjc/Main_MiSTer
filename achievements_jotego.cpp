@@ -241,6 +241,12 @@ static const jt_region_t r_psh2[] = {
 	{ 0x0E1800, 0x400, 0x1C00 }, { 0x100000, 0x400, 0x2000 },
 };
 static const jt_layout_t l_psh2[] = { { NULL, r_psh2, N(r_psh2) } };
+// Raiden (RA_Raiden): V30 main RAM (RamV30A) identity. Raiden II (RA_Raiden2):
+// DrvMainRAM by V30 address, 0x0000-0x3FFF and 0x8000-0xBFFF packed into 32 KB.
+static const jt_region_t r_raiden[]  = { { 0x0000, 0x7000, 0x0000 } };
+static const jt_region_t r_raiden2[] = { { 0x0000, 0x4000, 0x0000 }, { 0x8000, 0x4000, 0x4000 } };
+static const jt_layout_t l_raiden[]  = { { NULL, r_raiden, N(r_raiden) } };
+static const jt_layout_t l_raiden2[] = { { NULL, r_raiden2, N(r_raiden2) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -303,6 +309,8 @@ static const jt_core_t g_jt_cores[] = {
 	{ "SCRMBL",   l_scrmbl,  N(l_scrmbl) },
 	{ "TaitoF2",  l_taitof2, N(l_taitof2) },
 	{ "PsikyoSH2", l_psh2,   N(l_psh2) },
+	{ "Raiden",   l_raiden,  N(l_raiden) },
+	{ "Raiden2",  l_raiden2, N(l_raiden2) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -568,6 +576,8 @@ JT_HANDLER(g_console_galaxn,   "GALAXN")
 JT_HANDLER(g_console_scrmbl,   "SCRMBL")
 JT_HANDLER(g_console_taitof2,  "TaitoF2")
 JT_HANDLER(g_console_psh2,     "PsikyoSH2")
+JT_HANDLER(g_console_raiden,   "Raiden")
+JT_HANDLER(g_console_raiden2,  "Raiden2")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
