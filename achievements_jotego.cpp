@@ -170,6 +170,11 @@ static const jt_layout_t l_m92[]     = { { NULL, r_m92, N(r_m92) } };
 // Cave (Arcade-Cave_MiSTer fork, core name CAVE): every driver's RA buffer starts
 // with the 64 KB 68K work RAM, read straight from the core's mainRam (swapped).
 static const jt_layout_t l_cave[]    = { { NULL, r_cps, N(r_cps) } };
+// Namco Mappy hardware (Arcade-Druaga_MiSTer fork, core name Druaga): FBNeo's All
+// Ram is video RAM then sprite RAM; the core writes both at those offsets for
+// every board variant (8-bit 6809, no swap).
+static const jt_region_t r_druaga[] = { { 0x0000, 0x2800, 0x0000 } };
+static const jt_layout_t l_druaga[]  = { { NULL, r_druaga, N(r_druaga) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -209,6 +214,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "M72",      l_m72,     N(l_m72) },
 	{ "IremM92",  l_m92,     N(l_m92) },
 	{ "CAVE",     l_cave,    N(l_cave) },
+	{ "Druaga",   l_druaga,  N(l_druaga) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -335,6 +341,10 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "aliensynjo",  "aliensyn" },
 	{ "dsoccr94j",   "dsoccr94" },
 	{ "dbreedjm72",  "dbreed"   },
+	{ "todruagao",   "todruaga" },
+	{ "todruagas",   "todruaga" },
+	{ "mappyj",      "mappy"    },
+	{ "digdug2o",    "digdug2"  },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -446,4 +456,5 @@ JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
 JT_HANDLER(g_console_cave,     "CAVE")
+JT_HANDLER(g_console_druaga,   "Druaga")
 
