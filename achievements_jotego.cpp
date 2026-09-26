@@ -164,6 +164,33 @@ static const jt_layout_t l_ident8[]  = { { NULL, r_ident8, N(r_ident8) } };
 static const jt_layout_t l_vigil[]   = { { NULL, r_vigil, N(r_vigil) } };
 static const jt_layout_t l_wc[]      = { { NULL, r_wc, N(r_wc) } };
 static const jt_layout_t l_castle[]  = { { NULL, r_castle, N(r_castle) } };
+// Namco System 86 (Rolling Thunder, Hopping Mappy) and Baraduke/Alien Sector
+// (d_baraduke): the core writes object/tilemap RAM, MCU RAM and MCU internal RAM
+// at each driver's All Ram offsets. Pac-Land: FBNeo's buffer starts with ROMs, the
+// RAM from 0x6E000 is mirrored from 0. TNZS: sprite RAM 0x404 and shared RAM 0x2404.
+// All 8-bit CPUs, no swap.
+static const jt_region_t r_thundr[]   = { { 0x0000, 0x8080, 0x0000 } };
+static const jt_region_t r_baraduke[] = { { 0x0000, 0x5080, 0x0000 } };
+static const jt_region_t r_paclan[]   = { { 0x6E000, 0x4080, 0x0000 } };
+static const jt_region_t r_kiwi[]     = { { 0x0404, 0x3000, 0x0404 } };
+static const jt_layout_t l_thundr[]   = { { "aliensec", r_baraduke, N(r_baraduke) },
+	{ "baraduke", r_baraduke, N(r_baraduke) }, { NULL, r_thundr, N(r_thundr) } };
+static const jt_layout_t l_paclan[]   = { { NULL, r_paclan, N(r_paclan) } };
+static const jt_layout_t l_kiwi[]     = { { NULL, r_kiwi, N(r_kiwi) } };
+// Gradius III: FBNeo's 1-byte soundlatch leaves the 68K buffers at odd RA offsets;
+// the core stores Z80 RAM, main/sub/shared RAM and palette one byte lower.
+static const jt_region_t r_grad3[] = {
+	{ 0x00000, 0x0800, 0x0000 }, { 0x00801, 0x4000, 0x0800 }, { 0x04801, 0x4000, 0x4800 },
+	{ 0x08801, 0x4000, 0x8800 }, { 0x2C801, 0x1000, 0xC800 },
+};
+// Twin16 (Vulcan Venture): sprite, shared, main work and fix RAM (68K, swapped).
+static const jt_region_t r_twin16[] = {
+	{ 0x00000, 0x4000, 0x0000 }, { 0x0C000, 0x4000, 0x4000 },
+	{ 0x1C000, 0x4000, 0x8000 }, { 0x21000, 0x4000, 0xC000 },
+};
+// OutRun: sub RAM at 0, main work RAM at 0x8000 (68K, swapped): identity 64 KB.
+static const jt_layout_t l_grad3[]  = { { NULL, r_grad3, N(r_grad3) } };
+static const jt_layout_t l_twin16[] = { { NULL, r_twin16, N(r_twin16) } };
 static const jt_layout_t l_cps3[]    = { { NULL, r_cps3, N(r_cps3) } };
 static const jt_layout_t l_m72[]     = { { NULL, r_m72, N(r_m72) } };
 static const jt_layout_t l_m92[]     = { { NULL, r_m92, N(r_m92) } };
@@ -175,6 +202,16 @@ static const jt_layout_t l_cave[]    = { { NULL, r_cps, N(r_cps) } };
 // every board variant (8-bit 6809, no swap).
 static const jt_region_t r_druaga[] = { { 0x0000, 0x2800, 0x0000 } };
 static const jt_layout_t l_druaga[]  = { { NULL, r_druaga, N(r_druaga) } };
+// IGS PGM (Arcade-IGSPGM fork, core name IGSPGM): FBNeo's "68K RAM" is the 128 KB
+// work RAM at 0x800000 (swapped). The core copies the 1 KB pages the RA sets use
+// (kov2, dmnfrnt, espgal, ket, ddpdojblk) packed into 64 KB.
+static const jt_region_t r_pgm[] = {
+	{ 0x00000, 0x0400, 0x0000 }, { 0x01000, 0x0400, 0x0400 }, { 0x03400, 0x0800, 0x0800 }, { 0x07C00, 0x1400, 0x1000 },
+	{ 0x09800, 0x0C00, 0x2400 }, { 0x0A800, 0x0400, 0x3000 }, { 0x0C400, 0x0C00, 0x3400 }, { 0x0D400, 0x0400, 0x4000 },
+	{ 0x0E000, 0x0400, 0x4400 }, { 0x0EC00, 0x0400, 0x4800 }, { 0x0FC00, 0x4C00, 0x4C00 }, { 0x15000, 0x0C00, 0x9800 },
+	{ 0x17400, 0x1C00, 0xA400 }, { 0x1A000, 0x0C00, 0xC000 }, { 0x1B400, 0x3000, 0xCC00 }, { 0x1FC00, 0x0400, 0xFC00 },
+};
+static const jt_layout_t l_pgm[] = { { NULL, r_pgm, N(r_pgm) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -217,11 +254,19 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTROADF",  l_ident8,  N(l_ident8) },
 	{ "JTMIKIE",  l_ident8,  N(l_ident8) },
 	{ "JTCASTLE", l_castle,  N(l_castle) },
+	{ "JTTHUNDR", l_thundr,  N(l_thundr) },
+	{ "JTPACLAN", l_paclan,  N(l_paclan) },
+	{ "JTKIWI",   l_kiwi,    N(l_kiwi) },
+	{ "JTGRAD3",  l_grad3,   N(l_grad3) },
+	{ "JTTWIN16", l_twin16,  N(l_twin16) },
+	{ "JTOUTRUN", l_cps,     N(l_cps) },
 	{ "JTCPS3",   l_cps3,    N(l_cps3) },
 	{ "M72",      l_m72,     N(l_m72) },
 	{ "IremM92",  l_m92,     N(l_m92) },
 	{ "CAVE",     l_cave,    N(l_cave) },
 	{ "Druaga",   l_druaga,  N(l_druaga) },
+	{ "Psikyo",   l_cave,    N(l_cave) },
+	{ "IGSPGM",   l_pgm,     N(l_pgm) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -362,6 +407,8 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "puckmod",     "pacman"   },
 	{ "hangly",      "pacman"   },
 	{ "newpuckx",    "pacman"   },
+	{ "gradius3",    "gradius3j" },
+	{ "vulcan",      "gradius2" },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -469,6 +516,14 @@ JT_HANDLER(g_console_jtcontra, "JTCONTRA")
 JT_HANDLER(g_console_jtroadf,  "JTROADF")
 JT_HANDLER(g_console_jtmikie,  "JTMIKIE")
 JT_HANDLER(g_console_jtcastle, "JTCASTLE")
+JT_HANDLER(g_console_jtthundr, "JTTHUNDR")
+JT_HANDLER(g_console_jtpaclan, "JTPACLAN")
+JT_HANDLER(g_console_jtkiwi,   "JTKIWI")
+JT_HANDLER(g_console_jtgrad3,  "JTGRAD3")
+JT_HANDLER(g_console_jttwin16, "JTTWIN16")
+JT_HANDLER(g_console_jtoutrun, "JTOUTRUN")
+JT_HANDLER(g_console_psikyo,   "Psikyo")
+JT_HANDLER(g_console_pgm,      "IGSPGM")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")

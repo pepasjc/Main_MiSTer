@@ -54,6 +54,14 @@ extern const console_handler_t g_console_jtcontra;
 extern const console_handler_t g_console_jtroadf;
 extern const console_handler_t g_console_jtmikie;
 extern const console_handler_t g_console_jtcastle;
+extern const console_handler_t g_console_jtthundr;
+extern const console_handler_t g_console_jtpaclan;
+extern const console_handler_t g_console_jtkiwi;
+extern const console_handler_t g_console_jtgrad3;
+extern const console_handler_t g_console_jttwin16;
+extern const console_handler_t g_console_jtoutrun;
+extern const console_handler_t g_console_psikyo;
+extern const console_handler_t g_console_pgm;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
@@ -111,6 +119,14 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_jtroadf,
 	&g_console_jtmikie,
 	&g_console_jtcastle,
+	&g_console_jtthundr,
+	&g_console_jtpaclan,
+	&g_console_jtkiwi,
+	&g_console_jtgrad3,
+	&g_console_jttwin16,
+	&g_console_jtoutrun,
+	&g_console_psikyo,
+	&g_console_pgm,
 	&g_console_jtcps3,
 	&g_console_m72,
 	&g_console_m92,
