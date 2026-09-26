@@ -212,6 +212,16 @@ static const jt_region_t r_pgm[] = {
 	{ 0x17400, 0x1C00, 0xA400 }, { 0x1A000, 0x0C00, 0xC000 }, { 0x1B400, 0x3000, 0xCC00 }, { 0x1FC00, 0x0400, 0xFC00 },
 };
 static const jt_layout_t l_pgm[] = { { NULL, r_pgm, N(r_pgm) } };
+// Crazy Kong (Arcade-CrazyKong fork, RA_CKONG): the whole d_cclimber All Ram block,
+// identity. Sega System 1 (RA_SEGASYS1): d_sys1 main RAM, sound RAM, sprite RAM
+// and palette, identity. Irem M90 (RA_IremM90): V35 work RAM, palette and Z80 RAM
+// from 0x10800, then video RAM from 0x6000 (all 8/16-bit little-endian, no swap).
+static const jt_region_t r_ckong[]  = { { 0x0000, 0x3900, 0x0000 } };
+static const jt_region_t r_sys1[]   = { { 0x0000, 0x5900, 0x0000 } };
+static const jt_region_t r_m90[]    = { { 0x10800, 0x5800, 0x0000 }, { 0x06000, 0xA800, 0x5800 } };
+static const jt_layout_t l_ckong[]  = { { NULL, r_ckong, N(r_ckong) } };
+static const jt_layout_t l_sys1[]   = { { NULL, r_sys1, N(r_sys1) } };
+static const jt_layout_t l_m90[]    = { { NULL, r_m90, N(r_m90) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -267,6 +277,9 @@ static const jt_core_t g_jt_cores[] = {
 	{ "Druaga",   l_druaga,  N(l_druaga) },
 	{ "Psikyo",   l_cave,    N(l_cave) },
 	{ "IGSPGM",   l_pgm,     N(l_pgm) },
+	{ "CKONG",    l_ckong,   N(l_ckong) },
+	{ "SEGASYS1", l_sys1,    N(l_sys1) },
+	{ "IremM90",  l_m90,     N(l_m90) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -524,6 +537,9 @@ JT_HANDLER(g_console_jttwin16, "JTTWIN16")
 JT_HANDLER(g_console_jtoutrun, "JTOUTRUN")
 JT_HANDLER(g_console_psikyo,   "Psikyo")
 JT_HANDLER(g_console_pgm,      "IGSPGM")
+JT_HANDLER(g_console_ckong,    "CKONG")
+JT_HANDLER(g_console_sys1,     "SEGASYS1")
+JT_HANDLER(g_console_m90,      "IremM90")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")

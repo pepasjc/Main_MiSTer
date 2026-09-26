@@ -62,6 +62,9 @@ extern const console_handler_t g_console_jttwin16;
 extern const console_handler_t g_console_jtoutrun;
 extern const console_handler_t g_console_psikyo;
 extern const console_handler_t g_console_pgm;
+extern const console_handler_t g_console_ckong;
+extern const console_handler_t g_console_sys1;
+extern const console_handler_t g_console_m90;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
@@ -127,6 +130,9 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_jtoutrun,
 	&g_console_psikyo,
 	&g_console_pgm,
+	&g_console_ckong,
+	&g_console_sys1,
+	&g_console_m90,
 	&g_console_jtcps3,
 	&g_console_m72,
 	&g_console_m92,
