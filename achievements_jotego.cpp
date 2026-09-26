@@ -136,6 +136,15 @@ static const jt_region_t r_cps3[] = {
 // V30 work RAM at 0x26800 (16 KB) and the Z80 RAM at 0; the core mirrors V30 RAM
 // to 0 and the first 4 KB of Z80 RAM to 0x4000 (little-endian CPUs, no swap).
 static const jt_region_t r_m72[] = { { 0x26800, 0x4000, 0x0000 }, { 0x00000, 0x1000, 0x4000 } };
+// Irem M92 (Arcade-IremM92_MiSTer fork, core name IremM92): FBNeo All Ram is
+// sprites 0, video RAM 0x1000, V33 RAM 0x11000, sound RAM 0x21000, palette 0x25000.
+// The sets read main RAM (all), video RAM (Hook, Ninja Baseball Bat Man), sound
+// RAM and palette (Blade Master); the core packs the used parts into 64 KB
+// (little-endian CPUs, no swap).
+static const jt_region_t r_m92[] = {
+	{ 0x11000, 0xE000, 0x0000 }, { 0x01000, 0x1800, 0xE000 },
+	{ 0x25400, 0x0400, 0xF800 }, { 0x21000, 0x0400, 0xFC00 },
+};
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -157,6 +166,7 @@ static const jt_layout_t l_wc[]      = { { NULL, r_wc, N(r_wc) } };
 static const jt_layout_t l_castle[]  = { { NULL, r_castle, N(r_castle) } };
 static const jt_layout_t l_cps3[]    = { { NULL, r_cps3, N(r_cps3) } };
 static const jt_layout_t l_m72[]     = { { NULL, r_m72, N(r_m72) } };
+static const jt_layout_t l_m92[]     = { { NULL, r_m92, N(r_m92) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -194,6 +204,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTCASTLE", l_castle,  N(l_castle) },
 	{ "JTCPS3",   l_cps3,    N(l_cps3) },
 	{ "M72",      l_m72,     N(l_m72) },
+	{ "IremM92",  l_m92,     N(l_m92) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -429,4 +440,5 @@ JT_HANDLER(g_console_jtmikie,  "JTMIKIE")
 JT_HANDLER(g_console_jtcastle, "JTCASTLE")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
+JT_HANDLER(g_console_m92,      "IremM92")
 
