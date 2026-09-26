@@ -59,6 +59,7 @@ extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
 extern const console_handler_t g_console_cave;
 extern const console_handler_t g_console_druaga;
+extern const console_handler_t g_console_pacman;
 
 // Master lookup table
 static const console_handler_t *g_console_handlers[] = {
@@ -115,6 +116,7 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_m92,
 	&g_console_cave,
 	&g_console_druaga,
+	&g_console_pacman,
 	NULL
 };
 

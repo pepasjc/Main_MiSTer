@@ -175,6 +175,13 @@ static const jt_layout_t l_cave[]    = { { NULL, r_cps, N(r_cps) } };
 // every board variant (8-bit 6809, no swap).
 static const jt_region_t r_druaga[] = { { 0x0000, 0x2800, 0x0000 } };
 static const jt_layout_t l_druaga[]  = { { NULL, r_druaga, N(r_druaga) } };
+// Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
+// Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
+// d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
+// d_jrpacman: sprite xy 0, video 0x10, Z80 RAM 0x810 (8-bit, no swap).
+static const jt_region_t r_pacman[]   = { { 0x0000, 0x1815, 0x0000 } };
+static const jt_region_t r_jrpacman[] = { { 0x0000, 0x1010, 0x0000 } };
+static const jt_layout_t l_pacman[]   = { { "jrpacman", r_jrpacman, N(r_jrpacman) }, { NULL, r_pacman, N(r_pacman) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -215,6 +222,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "IremM92",  l_m92,     N(l_m92) },
 	{ "CAVE",     l_cave,    N(l_cave) },
 	{ "Druaga",   l_druaga,  N(l_druaga) },
+	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -345,6 +353,15 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "todruagas",   "todruaga" },
 	{ "mappyj",      "mappy"    },
 	{ "digdug2o",    "digdug2"  },
+	{ "mspacmat",    "mspacman" },
+	{ "mspacmancr",  "mspacman" },
+	{ "candory",     "ponpoko"  },
+	{ "ponpokov",    "ponpoko"  },
+	{ "jumpshotp",   "jumpshot" },
+	{ "eyeszac",     "eyes"     },
+	{ "puckmod",     "pacman"   },
+	{ "hangly",      "pacman"   },
+	{ "newpuckx",    "pacman"   },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -457,4 +474,5 @@ JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
 JT_HANDLER(g_console_cave,     "CAVE")
 JT_HANDLER(g_console_druaga,   "Druaga")
+JT_HANDLER(g_console_pacman,   "PACMAN")
 

@@ -118,6 +118,7 @@ extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
 extern const console_handler_t g_console_cave;
 extern const console_handler_t g_console_druaga;
+extern const console_handler_t g_console_pacman;
 
 // Get console handler by core name (returns NULL if not found)
 const console_handler_t *get_console_handler_by_name(const char *core_name);
