@@ -105,6 +105,37 @@ static const jt_region_t r_ident16[] = { { 0x0000, 0x4000, 0x0000 } };
 // Street Fighter: Drv68kRam (0xFF8000) is at RA 0x1800 and SDRAM word 0x44000,
 // i.e. mirror 0x8000 of the window based at word 0x40000 (swapped 68K layout).
 static const jt_region_t r_sf[]     = { { 0x1800, 0x8000, 0x8000 } };
+// Double Dragon (6809 RAM, main-module tap), Ninja Gaiden (68K RAM BRAM, 16-bit
+// tap), Vigilante (Z80 bus tap: work RAM 0, sprites 0x3000, palette 0x3100,
+// video 0x3900) and Tehkan World Cup (work RAM 0 + shared RAM 0x5800) all land
+// at their FBNeo All Ram offsets: RA 1:1.
+static const jt_region_t r_ident8[]  = { { 0x0000, 0x2000, 0x0000 } };
+static const jt_region_t r_vigil[]   = { { 0x0000, 0x4900, 0x0000 } };
+static const jt_region_t r_wc[]      = { { 0x0000, 0x0800, 0x0000 }, { 0x5800, 0x0800, 0x5800 } };
+// Konami 8-bit, tapped by CPU address at the FBNeo All Ram offsets: Contra (work
+// RAM 0x1000 -> 0), Road Fighter (0x3000 -> 0), Mikie (zero page 0, sprite +
+// work RAM from 0x100), Haunted Castle (palette/work RAM from 0x200, the banked
+// 0x0800 window kept flat like FBNeo).
+static const jt_region_t r_castle[]  = { { 0x0200, 0x1A00, 0x0200 } };
+// CPS3: FBNeo's "Main RAM" (512 KB SH-2 RAM, RA N = SH-2 byte 0x02000000+(N^3),
+// longwords stored little-endian). The core taps CPU writes to the 1 KB pages any
+// CPS3 RA set reads (union of sfiii, sfiii2, jojo, redearth, sfiii3: 31 pages)
+// into a packed 32 KB mirror, already in FBNeo byte order. A set revision that
+// reads a new page needs the page added to jtcps3_ra_map.v and here.
+static const jt_region_t r_cps3[] = {
+	{ 0x08400, 0x400, 0x0000 }, { 0x09000, 0x400, 0x0400 }, { 0x0A000, 0x400, 0x0800 },
+	{ 0x0D000, 0xC00, 0x0C00 }, { 0x0E400, 0x800, 0x1800 }, { 0x0F000, 0x400, 0x2000 },
+	{ 0x10000, 0x400, 0x2400 }, { 0x10C00, 0x800, 0x2800 }, { 0x12C00, 0x400, 0x3000 },
+	{ 0x14000, 0x400, 0x3400 }, { 0x15400, 0x400, 0x3800 }, { 0x16800, 0x400, 0x3C00 },
+	{ 0x17800, 0x400, 0x4000 }, { 0x28000, 0x800, 0x4400 }, { 0x2D000, 0x400, 0x4C00 },
+	{ 0x2E800, 0x400, 0x5000 }, { 0x30400, 0x800, 0x5400 }, { 0x5EC00, 0x400, 0x5C00 },
+	{ 0x60400, 0x400, 0x6000 }, { 0x65000, 0x400, 0x6400 }, { 0x68C00, 0x800, 0x6800 },
+	{ 0x6A400, 0xC00, 0x7000 },
+};
+// Irem M72 (Arcade-IremM72_MiSTer fork, core name M72): FBNeo All Ram puts the
+// V30 work RAM at 0x26800 (16 KB) and the Z80 RAM at 0; the core mirrors V30 RAM
+// to 0 and the first 4 KB of Z80 RAM to 0x4000 (little-endian CPUs, no swap).
+static const jt_region_t r_m72[] = { { 0x26800, 0x4000, 0x0000 }, { 0x00000, 0x1000, 0x4000 } };
 
 static const jt_layout_t l_cps[]    = { { NULL, r_cps, N(r_cps) } };
 static const jt_layout_t l_tmnt[]   = { { NULL, r_tmnt, N(r_tmnt) } };
@@ -120,6 +151,12 @@ static const jt_layout_t l_shouse[] = { { NULL, r_shouse, N(r_shouse) } };
 static const jt_layout_t l_ident32[] = { { NULL, r_ident32, N(r_ident32) } };
 static const jt_layout_t l_ident16[] = { { NULL, r_ident16, N(r_ident16) } };
 static const jt_layout_t l_sf[]      = { { NULL, r_sf, N(r_sf) } };
+static const jt_layout_t l_ident8[]  = { { NULL, r_ident8, N(r_ident8) } };
+static const jt_layout_t l_vigil[]   = { { NULL, r_vigil, N(r_vigil) } };
+static const jt_layout_t l_wc[]      = { { NULL, r_wc, N(r_wc) } };
+static const jt_layout_t l_castle[]  = { { NULL, r_castle, N(r_castle) } };
+static const jt_layout_t l_cps3[]    = { { NULL, r_cps3, N(r_cps3) } };
+static const jt_layout_t l_m72[]     = { { NULL, r_m72, N(r_m72) } };
 
 static const jt_core_t g_jt_cores[] = {
 	{ "JTCPS1",   l_cps,    N(l_cps) },
@@ -147,6 +184,16 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTBTIGER", l_ident16, N(l_ident16) },
 	{ "JTGNG",    l_ident16, N(l_ident16) },
 	{ "JTSF",     l_sf,      N(l_sf) },
+	{ "JTDD",     l_ident8,  N(l_ident8) },
+	{ "JTGAIDEN", l_ident16, N(l_ident16) },
+	{ "JTVIGIL",  l_vigil,   N(l_vigil) },
+	{ "JTWC",     l_wc,      N(l_wc) },
+	{ "JTCONTRA", l_ident8,  N(l_ident8) },
+	{ "JTROADF",  l_ident8,  N(l_ident8) },
+	{ "JTMIKIE",  l_ident8,  N(l_ident8) },
+	{ "JTCASTLE", l_castle,  N(l_castle) },
+	{ "JTCPS3",   l_cps3,    N(l_cps3) },
+	{ "M72",      l_m72,     N(l_m72) },
 };
 
 static uint8_t  g_jt_snap[JT_MIRROR_SIZE];
@@ -255,6 +302,33 @@ static int jt_poll(void *map, void *client, int game_loaded)
 #endif
 }
 
+// Clone set names the MiSTer MRAs use but RetroAchievements never registered,
+// mapped to the registered set that runs the same program with the same RAM
+// layout (CPS3 no-CD sets, System 16A/16B conversions, Japanese clones).
+static const struct { const char *clone, *parent; } jt_set_aliases[] = {
+	{ "sfiiin",      "sfiii"    },
+	{ "sfiiina",     "sfiii"    },
+	{ "sfiii2n",     "sfiii2"   },
+	{ "jojon",       "jojo"     },
+	{ "jojonr1",     "jojo"     },
+	{ "jojonr2",     "jojo"     },
+	{ "jojoban",     "jojoba"   },
+	{ "jojobanr1",   "jojoba"   },
+	{ "redearthn",   "redearth" },
+	{ "redearthnr1", "redearth" },
+	{ "shinobi3",    "shinobi"  },
+	{ "aliensynjo",  "aliensyn" },
+	{ "dsoccr94j",   "dsoccr94" },
+	{ "dbreedjm72",  "dbreed"   },
+};
+
+static const char *jt_alias_set(const char *set)
+{
+	for (size_t i = 0; i < sizeof(jt_set_aliases) / sizeof(jt_set_aliases[0]); i++)
+		if (!strcasecmp(set, jt_set_aliases[i].clone)) return jt_set_aliases[i].parent;
+	return NULL;
+}
+
 static int jt_calculate_hash(const char *rom_path, char *md5_hex_out)
 {
 	// Select the region layout from the set name ("<setname>.zip").
@@ -278,11 +352,18 @@ static int jt_calculate_hash(const char *rom_path, char *md5_hex_out)
 #ifdef HAS_RCHEEVOS
 	// Arcade hashing never opens the file: it is the md5 of the file name
 	// without extension, so "<setname>.zip" is all it needs.
-	if (rc_hash_generate_from_file(md5_hex_out, 27, rom_path)) {
-		ra_log_write("jotego: set '%s' hash %s\n", set, md5_hex_out);
+	const char *parent = jt_alias_set(set);
+	char alias_path[80];
+	if (parent) {
+		snprintf(alias_path, sizeof(alias_path), "%s.zip", parent);
+		ra_log_write("jotego: set '%s' hashed as its RA-registered parent '%s'\n", set, parent);
+	}
+	const char *hash_path = parent ? alias_path : rom_path;
+	if (rc_hash_generate_from_file(md5_hex_out, 27, hash_path)) {
+		ra_log_write("jotego: set '%s' hash %s\n", parent ? parent : set, md5_hex_out);
 		return 1;
 	}
-	ra_log_write("jotego: rc_hash_generate_from_file failed for '%s'\n", rom_path);
+	ra_log_write("jotego: rc_hash_generate_from_file failed for '%s'\n", hash_path);
 #endif
 	return 0;
 }
@@ -338,3 +419,14 @@ JT_HANDLER(g_console_jt1943,   "JT1943")
 JT_HANDLER(g_console_jtbtiger, "JTBTIGER")
 JT_HANDLER(g_console_jtgng,    "JTGNG")
 JT_HANDLER(g_console_jtsf,     "JTSF")
+JT_HANDLER(g_console_jtdd,     "JTDD")
+JT_HANDLER(g_console_jtgaiden, "JTGAIDEN")
+JT_HANDLER(g_console_jtvigil,  "JTVIGIL")
+JT_HANDLER(g_console_jtwc,     "JTWC")
+JT_HANDLER(g_console_jtcontra, "JTCONTRA")
+JT_HANDLER(g_console_jtroadf,  "JTROADF")
+JT_HANDLER(g_console_jtmikie,  "JTMIKIE")
+JT_HANDLER(g_console_jtcastle, "JTCASTLE")
+JT_HANDLER(g_console_jtcps3,   "JTCPS3")
+JT_HANDLER(g_console_m72,      "M72")
+

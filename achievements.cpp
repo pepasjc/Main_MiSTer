@@ -1677,7 +1677,10 @@ void achievements_init(void)
 	// loader (the ROMs were streamed by user_io_init before we got here), so
 	// start the game session from the MRA <setname>. RA hashes arcade games by
 	// set name, so "<setname>.zip" is all calculate_hash needs.
-	if (is_arcade() && !strncasecmp(g_active_handler->name, "JT", 2)) {
+	// Any arcade (console 27) handler started from an .mra; the NeoGeo handler
+	// loads its romsets through its own browser and is left alone.
+	if (is_arcade() && g_active_handler->console_id == 27
+	    && strcasecmp(g_active_handler->name, "NEOGEO")) {
 		const char *setname = arcade_get_setname();
 		if (setname && setname[0]) {
 			char set_path[256];
