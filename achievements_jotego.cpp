@@ -257,6 +257,28 @@ static const jt_region_t r_taitof3[] = {
 	{ 0x5C000, 0x0002, 0xFC00 },
 };
 static const jt_layout_t l_taitof3[] = { { NULL, r_taitof3, N(r_taitof3) } };
+// Third-party cores (RA forks in ra_mister): Jaleco MS32 (RA_MS32, Tetris Plus),
+// Namco NA-1/NA-2 (RA_NA1, Tinkle Pit / Numan Athletics), Sega System 32 (RA_S32,
+// 1 KB page map), Gaelco World Rally 1/2 (RA_JTWRALLY/RA_JTWRALLY2) and Konami Moo
+// Mesa (RA_MOOMESA). 68000 RAM swapped, V60/V70 and Z80 RAM byte-for-byte.
+static const jt_region_t r_ms32[]  = { { 0x04000, 0xC000, 0x0000 }, { 0x18000, 0x2000, 0xC000 }, { 0x1E000, 0x2000, 0xE000 } };
+static const jt_region_t r_na1[]   = { { 0x00000, 0xFC00, 0x0000 }, { 0xD7C00, 0x0400, 0xFC00 } };
+static const jt_region_t r_s32[]   = {
+	{ 0x00000, 0x2000, 0x0000 }, { 0x03000, 0x0800, 0x2000 }, { 0x04000, 0x0400, 0x2800 },
+	{ 0x04C00, 0x0400, 0x2C00 }, { 0x08000, 0x0800, 0x3000 }, { 0x0A000, 0x0400, 0x3800 },
+	{ 0x0AC00, 0x0C00, 0x3C00 }, { 0x0E400, 0x0400, 0x4800 }, { 0x0F000, 0x1000, 0x4C00 },
+	{ 0x4F000, 0x1000, 0x5C00 }, { 0x53400, 0x0400, 0x6C00 }, { 0x55C00, 0x0400, 0x7000 },
+	{ 0x90000, 0x0400, 0x7400 }, { 0x91C00, 0x0400, 0x7800 },
+};
+static const jt_region_t r_wrally[]  = { { 0x00000, 0x4000, 0x0000 } };
+static const jt_region_t r_wrally2[] = { { 0x22000, 0x8000, 0x0000 } };
+static const jt_region_t r_moomesa[] = { { 0x00000, 0x7C00, 0x0000 }, { 0x39000, 0x0400, 0x7C00 } };
+static const jt_layout_t l_ms32[]    = { { NULL, r_ms32, N(r_ms32) } };
+static const jt_layout_t l_na1[]     = { { NULL, r_na1, N(r_na1) } };
+static const jt_layout_t l_s32[]     = { { NULL, r_s32, N(r_s32) } };
+static const jt_layout_t l_wrally[]  = { { NULL, r_wrally, N(r_wrally) } };
+static const jt_layout_t l_wrally2[] = { { NULL, r_wrally2, N(r_wrally2) } };
+static const jt_layout_t l_moomesa[] = { { NULL, r_moomesa, N(r_moomesa) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -322,6 +344,12 @@ static const jt_core_t g_jt_cores[] = {
 	{ "Raiden",   l_raiden,  N(l_raiden) },
 	{ "Raiden2",  l_raiden2, N(l_raiden2) },
 	{ "Rayforce", l_taitof3, N(l_taitof3) },
+	{ "MS32",     l_ms32,    N(l_ms32) },
+	{ "NA1",      l_na1,     N(l_na1) },
+	{ "S32",      l_s32,     N(l_s32) },
+	{ "JTWRALLY", l_wrally,  N(l_wrally) },
+	{ "JTWRALLY2", l_wrally2, N(l_wrally2) },
+	{ "MOOMESA",  l_moomesa, N(l_moomesa) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -467,6 +495,13 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "amidars",     "amidar"   },
 	{ "kaiserkn",    "gblchmp"  },
 	{ "kaiserknj",   "gblchmp"  },
+	{ "numanathj",   "numanath" },
+	{ "ga2",         "ga2u"     },
+	{ "ga2j",        "ga2u"     },
+	{ "jparkj",      "jpark"    },
+	{ "jparkja",     "jpark"    },
+	{ "jparkjc",     "jpark"    },
+	{ "wrallyc",     "wrally"   },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -592,6 +627,12 @@ JT_HANDLER(g_console_psh2,     "PsikyoSH2")
 JT_HANDLER(g_console_raiden,   "Raiden")
 JT_HANDLER(g_console_raiden2,  "Raiden2")
 JT_HANDLER(g_console_taitof3,  "Rayforce")
+JT_HANDLER(g_console_ms32,     "MS32")
+JT_HANDLER(g_console_na1,      "NA1")
+JT_HANDLER(g_console_s32,      "S32")
+JT_HANDLER(g_console_wrally,   "JTWRALLY")
+JT_HANDLER(g_console_wrally2,  "JTWRALLY2")
+JT_HANDLER(g_console_moomesa,  "MOOMESA")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
