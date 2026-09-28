@@ -279,6 +279,23 @@ static const jt_layout_t l_s32[]     = { { NULL, r_s32, N(r_s32) } };
 static const jt_layout_t l_wrally[]  = { { NULL, r_wrally, N(r_wrally) } };
 static const jt_layout_t l_wrally2[] = { { NULL, r_wrally2, N(r_wrally2) } };
 static const jt_layout_t l_moomesa[] = { { NULL, r_moomesa, N(r_moomesa) } };
+// Williams (RA_ROBTRN: Sinistar/Bubbles/Joust; RA_DFNDR: Defender): whole d_williams All
+// Ram except sound RAM, identity. Q*bert (RA_QBert): pre-2020 d_qbert All Ram layout.
+// Nintendo (RA_DKONG, RA_DKONGJ, RA_DKONG3, RA_MARIO): d_dkong All Ram, identity;
+// the DK core also runs Pest Place (a Mario Bros bootleg) and the DK3 bootleg, whose
+// RA sets use the Mario / DK3 driver layouts. All 8-bit, no swap.
+static const jt_region_t r_williams[] = { { 0x0000, 0xE218, 0x0000 } };
+static const jt_region_t r_qbert[]    = { { 0x0000, 0x5540, 0x0000 } };
+static const jt_region_t r_dkong[]    = { { 0x0000, 0x1F00, 0x0000 } };
+static const jt_region_t r_pestplce[] = { { 0x0000, 0x1000, 0x0000 }, { 0x1000, 0x0400, 0x1B00 }, { 0x1400, 0x0400, 0x1000 } };
+static const jt_region_t r_dkong3b[]  = { { 0x0000, 0x0900, 0x0000 }, { 0x1000, 0x0700, 0x0900 }, { 0x1700, 0x0400, 0x1000 }, { 0x1B00, 0x0400, 0x1B00 } };
+static const jt_region_t r_mario[]    = { { 0x0000, 0x1800, 0x0000 } };
+static const jt_layout_t l_williams[] = { { NULL, r_williams, N(r_williams) } };
+static const jt_layout_t l_qbert[]    = { { NULL, r_qbert, N(r_qbert) } };
+static const jt_layout_t l_dkong[]    = { { "pestplce", r_pestplce, N(r_pestplce) },
+	{ "dkong3b", r_dkong3b, N(r_dkong3b) }, { NULL, r_dkong, N(r_dkong) } };
+static const jt_layout_t l_dkongjr[]  = { { NULL, r_dkong, N(r_dkong) } };
+static const jt_layout_t l_mario[]    = { { NULL, r_mario, N(r_mario) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -350,6 +367,13 @@ static const jt_core_t g_jt_cores[] = {
 	{ "JTWRALLY", l_wrally,  N(l_wrally) },
 	{ "JTWRALLY2", l_wrally2, N(l_wrally2) },
 	{ "MOOMESA",  l_moomesa, N(l_moomesa) },
+	{ "ROBTRN",   l_williams, N(l_williams) },
+	{ "DFNDR",    l_williams, N(l_williams) },
+	{ "QBert",    l_qbert,   N(l_qbert) },
+	{ "DKONG",    l_dkong,   N(l_dkong) },
+	{ "DKONGJ",   l_dkongjr, N(l_dkongjr) },
+	{ "DKONG3",   l_dkongjr, N(l_dkongjr) },
+	{ "MARIO",    l_mario,   N(l_mario) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -502,6 +526,8 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "jparkja",     "jpark"    },
 	{ "jparkjc",     "jpark"    },
 	{ "wrallyc",     "wrally"   },
+	{ "pestplce",    "mario"    },
+	{ "dkong3b",     "dkong3"   },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -633,6 +659,13 @@ JT_HANDLER(g_console_s32,      "S32")
 JT_HANDLER(g_console_wrally,   "JTWRALLY")
 JT_HANDLER(g_console_wrally2,  "JTWRALLY2")
 JT_HANDLER(g_console_moomesa,  "MOOMESA")
+JT_HANDLER(g_console_robtrn, "ROBTRN")
+JT_HANDLER(g_console_dfndr, "DFNDR")
+JT_HANDLER(g_console_qbert, "QBert")
+JT_HANDLER(g_console_dkong, "DKONG")
+JT_HANDLER(g_console_dkongj, "DKONGJ")
+JT_HANDLER(g_console_dkong3, "DKONG3")
+JT_HANDLER(g_console_mario, "MARIO")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
