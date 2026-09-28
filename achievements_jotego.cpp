@@ -296,6 +296,17 @@ static const jt_layout_t l_dkong[]    = { { "pestplce", r_pestplce, N(r_pestplce
 	{ "dkong3b", r_dkong3b, N(r_dkong3b) }, { NULL, r_dkong, N(r_dkong) } };
 static const jt_layout_t l_dkongjr[]  = { { NULL, r_dkong, N(r_dkong) } };
 static const jt_layout_t l_mario[]    = { { NULL, r_mario, N(r_mario) } };
+// Konami Green Beret / Mr. Goemon (RA_RshnAtk), Salamander / Life Force (RA_Salamander,
+// 68K swapped), SNK Athena (RA_Athena) and ASO (RA_SNK_TripleZ80), Toaplan Alcon
+// (RA_SLAPFIGHT): identity windows over each driver's All Ram.
+static const jt_region_t r_rshnatk[] = { { 0x0000, 0x2500, 0x0000 } };
+static const jt_region_t r_salamnd[] = { { 0x0000, 0x8000, 0x0000 } };
+static const jt_region_t r_snk7k[]   = { { 0x0000, 0x7000, 0x0000 } };
+static const jt_region_t r_slapfgt[] = { { 0x0000, 0x6800, 0x0000 } };
+static const jt_layout_t l_rshnatk[] = { { NULL, r_rshnatk, N(r_rshnatk) } };
+static const jt_layout_t l_salamnd[] = { { NULL, r_salamnd, N(r_salamnd) } };
+static const jt_layout_t l_snk7k[]   = { { NULL, r_snk7k, N(r_snk7k) } };
+static const jt_layout_t l_slapfgt[] = { { NULL, r_slapfgt, N(r_slapfgt) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -374,6 +385,11 @@ static const jt_core_t g_jt_cores[] = {
 	{ "DKONGJ",   l_dkongjr, N(l_dkongjr) },
 	{ "DKONG3",   l_dkongjr, N(l_dkongjr) },
 	{ "MARIO",    l_mario,   N(l_mario) },
+	{ "RshnAtk",  l_rshnatk, N(l_rshnatk) },
+	{ "Salamander", l_salamnd, N(l_salamnd) },
+	{ "Athena",   l_snk7k,   N(l_snk7k) },
+	{ "SNK_TripleZ80", l_snk7k, N(l_snk7k) },
+	{ "SLAPFIGHT", l_slapfgt, N(l_slapfgt) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -666,6 +682,11 @@ JT_HANDLER(g_console_dkong, "DKONG")
 JT_HANDLER(g_console_dkongj, "DKONGJ")
 JT_HANDLER(g_console_dkong3, "DKONG3")
 JT_HANDLER(g_console_mario, "MARIO")
+JT_HANDLER(g_console_rshnatk, "RshnAtk")
+JT_HANDLER(g_console_salamander, "Salamander")
+JT_HANDLER(g_console_athena, "Athena")
+JT_HANDLER(g_console_triplez80, "SNK_TripleZ80")
+JT_HANDLER(g_console_slapfight, "SLAPFIGHT")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")

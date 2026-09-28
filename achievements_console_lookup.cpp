@@ -85,6 +85,11 @@ extern const console_handler_t g_console_dkong;
 extern const console_handler_t g_console_dkongj;
 extern const console_handler_t g_console_dkong3;
 extern const console_handler_t g_console_mario;
+extern const console_handler_t g_console_rshnatk;
+extern const console_handler_t g_console_salamander;
+extern const console_handler_t g_console_athena;
+extern const console_handler_t g_console_triplez80;
+extern const console_handler_t g_console_slapfight;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
@@ -173,6 +178,11 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_dkongj,
 	&g_console_dkong3,
 	&g_console_mario,
+	&g_console_rshnatk,
+	&g_console_salamander,
+	&g_console_athena,
+	&g_console_triplez80,
+	&g_console_slapfight,
 	&g_console_jtcps3,
 	&g_console_m72,
 	&g_console_m92,
