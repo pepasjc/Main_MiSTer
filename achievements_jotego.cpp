@@ -313,6 +313,20 @@ static const jt_region_t r_asuka[] = { { 0x0000, 0xB000, 0x0000 } };
 static const jt_layout_t l_asuka[] = { { NULL, r_asuka, N(r_asuka) } };
 static const jt_region_t r_fuuki[] = { { 0x0400, 0x0010, 0x0000 }, { 0x1410, 0xF800, 0x0800 } };
 static const jt_layout_t l_fuuki[] = { { NULL, r_fuuki, N(r_fuuki) } };
+// Blood Bros, Trio The Punch, Night Slashers (ARM, packed windows), Tecmo (Rygar),
+// SNK 6502 (Vanguard, Nibbler), Prehistoric Isle: verified against the RA sets.
+static const jt_region_t r_bloodbros[] = { { 0x00000, 0xB800, 0x0000 }, { 0x14800, 0x4000, 0xB800 }, { 0x1A000, 0x0800, 0xF800 } };
+static const jt_layout_t l_bloodbros[] = { { NULL, r_bloodbros, N(r_bloodbros) } };
+static const jt_region_t r_trio[] = { { 0x0000, 0xB042, 0x0000 } };
+static const jt_layout_t l_trio[] = { { NULL, r_trio, N(r_trio) } };
+static const jt_region_t r_nslasher[] = { { 0x00000, 0xF000, 0x0000 }, { 0x1F000, 0x1000, 0xF000 } };
+static const jt_layout_t l_nslasher[] = { { NULL, r_nslasher, N(r_nslasher) } };
+static const jt_region_t r_tecmo[] = { { 0x0000, 0x3808, 0x0000 } };
+static const jt_layout_t l_tecmo[] = { { NULL, r_tecmo, N(r_tecmo) } };
+static const jt_region_t r_snk6502[] = { { 0x0000, 0x2000, 0x0000 } };
+static const jt_layout_t l_snk6502[] = { { NULL, r_snk6502, N(r_snk6502) } };
+static const jt_region_t r_prehisle[] = { { 0x0000, 0xA800, 0x0000 } };
+static const jt_layout_t l_prehisle[] = { { NULL, r_prehisle, N(r_prehisle) } };
 // Konami Green Beret / Mr. Goemon (RA_RshnAtk), Salamander / Life Force (RA_Salamander,
 // 68K swapped), SNK Athena (RA_Athena) and ASO (RA_SNK_TripleZ80), Toaplan Alcon
 // (RA_SLAPFIGHT): identity windows over each driver's All Ram.
@@ -441,6 +455,12 @@ static const jt_core_t g_jt_cores[] = {
 	{ "Darius2", l_darius2, N(l_darius2) },
 	{ "TaitoAsuka", l_asuka, N(l_asuka) },
 	{ "Fuuki", l_fuuki, N(l_fuuki) },
+	{ "BloodBros", l_bloodbros, N(l_bloodbros) },
+	{ "TrioThePunch", l_trio, N(l_trio) },
+	{ "NightSlashers", l_nslasher, N(l_nslasher) },
+	{ "Tecmo", l_tecmo, N(l_tecmo) },
+	{ "SNK6502", l_snk6502, N(l_snk6502) },
+	{ "prehisle1930", l_prehisle, N(l_prehisle) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -613,6 +633,10 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "sailormnh", "sailormn" },
 	{ "sailormnk", "sailormn" },
 	{ "sailormnt", "sailormn" },
+	{ "nslasherj", "nslasher" },
+	{ "nslasheru", "nslasher" },
+	{ "prehisleu", "prehisle" },
+	{ "prehislek", "prehisle" },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -770,6 +794,12 @@ JT_HANDLER(g_console_darius, "Darius")
 JT_HANDLER(g_console_darius2, "Darius2")
 JT_HANDLER(g_console_asuka, "TaitoAsuka")
 JT_HANDLER(g_console_fuuki, "Fuuki")
+JT_HANDLER(g_console_bloodbros, "BloodBros")
+JT_HANDLER(g_console_trio, "TrioThePunch")
+JT_HANDLER(g_console_nslasher, "NightSlashers")
+JT_HANDLER(g_console_tecmo, "Tecmo")
+JT_HANDLER(g_console_snk6502, "SNK6502")
+JT_HANDLER(g_console_prehisle, "prehisle1930")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
