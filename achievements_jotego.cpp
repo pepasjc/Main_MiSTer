@@ -300,6 +300,19 @@ static const jt_layout_t l_dkong[]    = { { "pestplce", r_pestplce, N(r_pestplce
 static const jt_layout_t l_dkongjr[]  = { { NULL, r_dkong, N(r_dkong) } };
 static const jt_layout_t l_mario[]    = { { NULL, r_mario, N(r_mario) } };
 static const jt_layout_t l_dkong3[]   = { { NULL, r_dkong3, N(r_dkong3) } };
+// Cave Banpresto (Sailor Moon), Taito Darius / Ninja Warriors / Asuka, Fuuki FG-3
+// (MiSTer-devel RA forks): 68K RAM swapped, Z80 RAM byte-for-byte; verified against
+// the RA sets (2026-09-28).
+static const jt_region_t r_cavebanp[] = { { 0x00000, 0xE000, 0x0000 }, { 0x1C004, 0x2000, 0xE000 } };
+static const jt_layout_t l_cavebanp[] = { { NULL, r_cavebanp, N(r_cavebanp) } };
+static const jt_region_t r_darius[] = { { 0x00000, 0xE000, 0x0000 }, { 0x0F000, 0x1000, 0xE000 }, { 0x2C800, 0x1000, 0xF000 } };
+static const jt_layout_t l_darius[] = { { NULL, r_darius, N(r_darius) } };
+static const jt_region_t r_darius2[] = { { 0x00000, 0xC000, 0x0000 }, { 0x20000, 0x2000, 0xC000 }, { 0x22000, 0x2000, 0xE000 } };
+static const jt_layout_t l_darius2[] = { { NULL, r_darius2, N(r_darius2) } };
+static const jt_region_t r_asuka[] = { { 0x0000, 0xB000, 0x0000 } };
+static const jt_layout_t l_asuka[] = { { NULL, r_asuka, N(r_asuka) } };
+static const jt_region_t r_fuuki[] = { { 0x0400, 0x0010, 0x0000 }, { 0x1410, 0xF800, 0x0800 } };
+static const jt_layout_t l_fuuki[] = { { NULL, r_fuuki, N(r_fuuki) } };
 // Konami Green Beret / Mr. Goemon (RA_RshnAtk), Salamander / Life Force (RA_Salamander,
 // 68K swapped), SNK Athena (RA_Athena) and ASO (RA_SNK_TripleZ80), Toaplan Alcon
 // (RA_SLAPFIGHT): identity windows over each driver's All Ram.
@@ -423,6 +436,11 @@ static const jt_core_t g_jt_cores[] = {
 	{ "KYUGO", l_kyugo, N(l_kyugo) },
 	{ "StarForce", l_starforce, N(l_starforce) },
 	{ "PenguinKunWars", l_pkunwar, N(l_pkunwar) },
+	{ "cavebanpresto", l_cavebanp, N(l_cavebanp) },
+	{ "Darius", l_darius, N(l_darius) },
+	{ "Darius2", l_darius2, N(l_darius2) },
+	{ "TaitoAsuka", l_asuka, N(l_asuka) },
+	{ "Fuuki", l_fuuki, N(l_fuuki) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -591,6 +609,10 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "bubblesr", "bubbles" },
 	{ "qberta", "qbert" },
 	{ "qbertj", "qbert" },
+	{ "sailormne", "sailormn" },
+	{ "sailormnh", "sailormn" },
+	{ "sailormnk", "sailormn" },
+	{ "sailormnt", "sailormn" },
 };
 
 static const char *jt_alias_set(const char *set)
@@ -743,6 +765,11 @@ JT_HANDLER(g_console_bmbjck, "BMBJCK")
 JT_HANDLER(g_console_kyugo, "KYUGO")
 JT_HANDLER(g_console_starforce, "StarForce")
 JT_HANDLER(g_console_pkunwar, "PenguinKunWars")
+JT_HANDLER(g_console_cavebanp, "cavebanpresto")
+JT_HANDLER(g_console_darius, "Darius")
+JT_HANDLER(g_console_darius2, "Darius2")
+JT_HANDLER(g_console_asuka, "TaitoAsuka")
+JT_HANDLER(g_console_fuuki, "Fuuki")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")

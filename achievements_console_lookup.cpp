@@ -99,6 +99,11 @@ extern const console_handler_t g_console_bmbjck;
 extern const console_handler_t g_console_kyugo;
 extern const console_handler_t g_console_starforce;
 extern const console_handler_t g_console_pkunwar;
+extern const console_handler_t g_console_cavebanp;
+extern const console_handler_t g_console_darius;
+extern const console_handler_t g_console_darius2;
+extern const console_handler_t g_console_asuka;
+extern const console_handler_t g_console_fuuki;
 extern const console_handler_t g_console_jtcps3;
 extern const console_handler_t g_console_m72;
 extern const console_handler_t g_console_m92;
@@ -201,6 +206,11 @@ static const console_handler_t *g_console_handlers[] = {
 	&g_console_kyugo,
 	&g_console_starforce,
 	&g_console_pkunwar,
+	&g_console_cavebanp,
+	&g_console_darius,
+	&g_console_darius2,
+	&g_console_asuka,
+	&g_console_fuuki,
 	&g_console_jtcps3,
 	&g_console_m72,
 	&g_console_m92,
