@@ -307,6 +307,26 @@ static const jt_layout_t l_rshnatk[] = { { NULL, r_rshnatk, N(r_rshnatk) } };
 static const jt_layout_t l_salamnd[] = { { NULL, r_salamnd, N(r_salamnd) } };
 static const jt_layout_t l_snk7k[]   = { { NULL, r_snk7k, N(r_snk7k) } };
 static const jt_layout_t l_slapfgt[] = { { NULL, r_slapfgt, N(r_slapfgt) } };
+// 8-bit singles (MiSTer-devel RA forks): each core mirrors its driver's whole FBNeo
+// All Ram block, identity (Qix: first 64 KB of 0x10D80).
+static const jt_region_t r_centiped[] = { { 0x0000, 0x860, 0x0000 } };
+static const jt_layout_t l_centiped[] = { { NULL, r_centiped, N(r_centiped) } };
+static const jt_region_t r_popeye[] = { { 0x0000, 0x3905, 0x0000 } };
+static const jt_layout_t l_popeye[] = { { NULL, r_popeye, N(r_popeye) } };
+static const jt_region_t r_digdug[] = { { 0x0000, 0x1400, 0x0000 } };
+static const jt_layout_t l_digdug[] = { { NULL, r_digdug, N(r_digdug) } };
+static const jt_region_t r_moonpt[] = { { 0x0000, 0x1C00, 0x0000 } };
+static const jt_layout_t l_moonpt[] = { { NULL, r_moonpt, N(r_moonpt) } };
+static const jt_region_t r_qix[] = { { 0x0000, 0x10000, 0x0000 } };
+static const jt_layout_t l_qix[] = { { NULL, r_qix, N(r_qix) } };
+static const jt_region_t r_bmbjck[] = { { 0x0000, 0x1E00, 0x0000 } };
+static const jt_layout_t l_bmbjck[] = { { NULL, r_bmbjck, N(r_bmbjck) } };
+static const jt_region_t r_kyugo[] = { { 0x0000, 0x3800, 0x0000 } };
+static const jt_layout_t l_kyugo[] = { { NULL, r_kyugo, N(r_kyugo) } };
+static const jt_region_t r_starforce[] = { { 0x0000, 0x4000, 0x0000 } };
+static const jt_layout_t l_starforce[] = { { NULL, r_starforce, N(r_starforce) } };
+static const jt_region_t r_pkunwar[] = { { 0x0000, 0x2B00, 0x0000 } };
+static const jt_layout_t l_pkunwar[] = { { NULL, r_pkunwar, N(r_pkunwar) } };
 // Pac-Man hardware (Arcade-Pacman_MiSTer fork, core name PACMAN): the core writes
 // Z80 RAM, sprite xy, colour/video RAM and the flip bit at FBNeo's All Ram offsets.
 // d_pacman: Z80 RAM 0, sprite xy 0x1000, colour 0x1010, video 0x1410, flip 0x1814.
@@ -390,6 +410,15 @@ static const jt_core_t g_jt_cores[] = {
 	{ "Athena",   l_snk7k,   N(l_snk7k) },
 	{ "SNK_TripleZ80", l_snk7k, N(l_snk7k) },
 	{ "SLAPFIGHT", l_slapfgt, N(l_slapfgt) },
+	{ "CENTIPED", l_centiped, N(l_centiped) },
+	{ "POPEYE", l_popeye, N(l_popeye) },
+	{ "DIGDUG", l_digdug, N(l_digdug) },
+	{ "MOONPT", l_moonpt, N(l_moonpt) },
+	{ "QIX", l_qix, N(l_qix) },
+	{ "BMBJCK", l_bmbjck, N(l_bmbjck) },
+	{ "KYUGO", l_kyugo, N(l_kyugo) },
+	{ "StarForce", l_starforce, N(l_starforce) },
+	{ "PenguinKunWars", l_pkunwar, N(l_pkunwar) },
 	{ "PACMAN",   l_pacman,  N(l_pacman) },
 };
 
@@ -687,6 +716,15 @@ JT_HANDLER(g_console_salamander, "Salamander")
 JT_HANDLER(g_console_athena, "Athena")
 JT_HANDLER(g_console_triplez80, "SNK_TripleZ80")
 JT_HANDLER(g_console_slapfight, "SLAPFIGHT")
+JT_HANDLER(g_console_centiped, "CENTIPED")
+JT_HANDLER(g_console_popeye, "POPEYE")
+JT_HANDLER(g_console_digdug, "DIGDUG")
+JT_HANDLER(g_console_moonpt, "MOONPT")
+JT_HANDLER(g_console_qix, "QIX")
+JT_HANDLER(g_console_bmbjck, "BMBJCK")
+JT_HANDLER(g_console_kyugo, "KYUGO")
+JT_HANDLER(g_console_starforce, "StarForce")
+JT_HANDLER(g_console_pkunwar, "PenguinKunWars")
 JT_HANDLER(g_console_jtcps3,   "JTCPS3")
 JT_HANDLER(g_console_m72,      "M72")
 JT_HANDLER(g_console_m92,      "IremM92")
