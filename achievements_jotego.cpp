@@ -279,23 +279,27 @@ static const jt_layout_t l_s32[]     = { { NULL, r_s32, N(r_s32) } };
 static const jt_layout_t l_wrally[]  = { { NULL, r_wrally, N(r_wrally) } };
 static const jt_layout_t l_wrally2[] = { { NULL, r_wrally2, N(r_wrally2) } };
 static const jt_layout_t l_moomesa[] = { { NULL, r_moomesa, N(r_moomesa) } };
-// Williams (RA_ROBTRN: Sinistar/Bubbles/Joust; RA_DFNDR: Defender): whole d_williams All
-// Ram except sound RAM, identity. Q*bert (RA_QBert): pre-2020 d_qbert All Ram layout.
+// Williams (RA_ROBTRN: Sinistar/Bubbles/Joust; RA_DFNDR: Defender): d_williams All Ram
+// is 0x10218 bytes; the palette/blitter bytes above 64 KB sit at mirror 0x1000 (unused
+// part of the first block). Q*bert (RA_QBert): FBNeo 2020-2023 d_qbert layout incl.
+// the Votrax speech queue at 0x3745 that Q*bert's Qubes reads.
 // Nintendo (RA_DKONG, RA_DKONGJ, RA_DKONG3, RA_MARIO): d_dkong All Ram, identity;
 // the DK core also runs Pest Place (a Mario Bros bootleg) and the DK3 bootleg, whose
 // RA sets use the Mario / DK3 driver layouts. All 8-bit, no swap.
-static const jt_region_t r_williams[] = { { 0x0000, 0xE218, 0x0000 } };
-static const jt_region_t r_qbert[]    = { { 0x0000, 0x5540, 0x0000 } };
+static const jt_region_t r_williams[] = { { 0x0000, 0x1000, 0x0000 }, { 0x4000, 0xC000, 0x4000 }, { 0x10000, 0x0218, 0x1000 } };
+static const jt_region_t r_qbert[]    = { { 0x0000, 0x376A, 0x0000 } };
+static const jt_region_t r_dkong3[]   = { { 0x0000, 0x2100, 0x0000 } };
 static const jt_region_t r_dkong[]    = { { 0x0000, 0x1F00, 0x0000 } };
 static const jt_region_t r_pestplce[] = { { 0x0000, 0x1000, 0x0000 }, { 0x1000, 0x0400, 0x1B00 }, { 0x1400, 0x0400, 0x1000 } };
 static const jt_region_t r_dkong3b[]  = { { 0x0000, 0x0900, 0x0000 }, { 0x1000, 0x0700, 0x0900 }, { 0x1700, 0x0400, 0x1000 }, { 0x1B00, 0x0400, 0x1B00 } };
-static const jt_region_t r_mario[]    = { { 0x0000, 0x1800, 0x0000 } };
+static const jt_region_t r_mario[]    = { { 0x0000, 0x1C1E, 0x0000 } };
 static const jt_layout_t l_williams[] = { { NULL, r_williams, N(r_williams) } };
 static const jt_layout_t l_qbert[]    = { { NULL, r_qbert, N(r_qbert) } };
 static const jt_layout_t l_dkong[]    = { { "pestplce", r_pestplce, N(r_pestplce) },
 	{ "dkong3b", r_dkong3b, N(r_dkong3b) }, { NULL, r_dkong, N(r_dkong) } };
 static const jt_layout_t l_dkongjr[]  = { { NULL, r_dkong, N(r_dkong) } };
 static const jt_layout_t l_mario[]    = { { NULL, r_mario, N(r_mario) } };
+static const jt_layout_t l_dkong3[]   = { { NULL, r_dkong3, N(r_dkong3) } };
 // Konami Green Beret / Mr. Goemon (RA_RshnAtk), Salamander / Life Force (RA_Salamander,
 // 68K swapped), SNK Athena (RA_Athena) and ASO (RA_SNK_TripleZ80), Toaplan Alcon
 // (RA_SLAPFIGHT): identity windows over each driver's All Ram.
@@ -403,7 +407,7 @@ static const jt_core_t g_jt_cores[] = {
 	{ "QBert",    l_qbert,   N(l_qbert) },
 	{ "DKONG",    l_dkong,   N(l_dkong) },
 	{ "DKONGJ",   l_dkongjr, N(l_dkongjr) },
-	{ "DKONG3",   l_dkongjr, N(l_dkongjr) },
+	{ "DKONG3",   l_dkong3,  N(l_dkong3) },
 	{ "MARIO",    l_mario,   N(l_mario) },
 	{ "RshnAtk",  l_rshnatk, N(l_rshnatk) },
 	{ "Salamander", l_salamnd, N(l_salamnd) },
@@ -573,6 +577,20 @@ static const struct { const char *clone, *parent; } jt_set_aliases[] = {
 	{ "wrallyc",     "wrally"   },
 	{ "pestplce",    "mario"    },
 	{ "dkong3b",     "dkong3"   },
+	{ "dkong3j", "dkong3" },
+	{ "dkongj", "dkong" },
+	{ "dkongo", "dkong" },
+	{ "dkonghrd", "dkong" },
+	{ "dkongjo", "dkong" },
+	{ "dkongjo1", "dkong" },
+	{ "dkongpe", "dkong" },
+	{ "radarscpc", "radarscp" },
+	{ "jousty", "joust" },
+	{ "joustr", "joust" },
+	{ "sinistar2", "sinistar" },
+	{ "bubblesr", "bubbles" },
+	{ "qberta", "qbert" },
+	{ "qbertj", "qbert" },
 };
 
 static const char *jt_alias_set(const char *set)
